@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "http://localhost:3000/api/questions",
+                    method: "GET"
+                }).done(function(response){
+                    $("#questions").append(response).map(function(element){ // response is the questions array
+                        return "<p>" + element.ques + "</p>"  //element is one of the elements in questions array
+                    })
+                });
+                $("#submit").on('click', function(){
+                    $.ajax({ // send and receive data from a server without having to reload page
+                            method: "POST", // sending info to server. note that GET(smaller) and POST(forms) send info to server, POST can send more data
+                            url: "http://localhost:3000/api/newQuestion",
+                            //dataType: "JSON",
+                            data: {
+                                newQ:$("#newQ").val()
+                            }
+                        }).done(function(response){
+                            $("#report").html('Submission Successful');
+                        });
+                  });
+            })
+        </script>
+        
+    </head>
+    <body>
+        <div id="newQuestion">
+            <textarea id ="newQ">Enter question here...</textarea>
+            <button type="button" id="submit">Submit</button>
+        </div>
+        <p id="report"></p>
+        <p id="answers">
+        </p>
+   
+    </body>
+</html>

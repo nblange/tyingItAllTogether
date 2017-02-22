@@ -46,6 +46,78 @@ var question = {
 
 create a variable, questions, that holds a list of data of this type. Write a GET route that retrieves all of the questions in the array and returns them as a json object. Turn on your server and test out this route with the postman application.
 
+##4. Consume that route
+
+Import jquery in the index.html file you created. Create a div that will hold all the questions in it. Use JQuery's ajax method to retrieve the information from the server. This will be similar to what you did in the Giphy exercise. Once you've retrieved the information, display it in index.html.
+
+##5. Create a post route.
+
+Let's make a way to add new questions. First write a function that adds a new question to our array. It should take one parameter, the text of the question in a string. It should start all questions out with zero votes and should assign a unique id number (you will have to figure out a scheme so that an id isn't used twice).
+
+Then create a post route that takes a question from the http POST request's body. To get express to add this to the request, recall that you'll have to install and use the body parser middleware. There are two ways that the body parser can read request bodies either as JSON (specially formatted javascript objects) or as url-encoded data (data passed in by html forms). You could use either, but let's try passing JSON.
+
+Look in the express body parser documentation for how to add in the json body parser middleware.
+
+To test this, use postman and modify the body to include a JSON object. This will be like a javascript object. But all values must be strings, numbers and booleans. String must all use double quotes and keys also must be in double quotes:
+
+Example:
+
+```
+// This is a javascript object
+
+var obj = {
+	a: 5,
+	b: 'hello',
+}
+
+// here is that object as a JSON object
+
+{
+   "a" : 5,
+   "b" : "hello"
+}
+```
+You can create an object in the 'body' section of the postman request. Be sure to set the datatype to 'application/json'
+
+Once you've created a request in postman, try sending it to the server. Log req.body in your post route to see that express is receiving the JSON object that you are sending. Combine it with the function that you wrote at the beginning of this step.
+
+Call this function in your post route. Don't forget to send a response once you've added the question.
+
+Use postman to add a new question. Then check your browser to see that your index.html shows the added question
+
+## 6. Create a page to add questions
+
+Now create another page 'add.html'. Create a link to it in your index.html. It should contain a textarea where you can write a question and a submit button. When the submit button is clicked, use jQuery to send an ajax post to your server to the post route you just created. You will need to add two new properties to the object that is the parameter to your ajax call. The first is 'data' this is where you put in JSON object. You can convert a javascript object to a JSON object with the built-in javascript object JSON.stringify. The second parameter to add is 'contentType'. This should be set to 'application/json'
+
+Try this out. Add some questions, and check to see that they have been added to index.html.
+
+Could the UX be improved? Try using javascript to redirect back to the index after the user submits a new question successfully.
+
+##7. Vote up questions
+
+Let's let users vote for questions that are the most helpful. Let's create a put method that takes an id and increments the vote total for that question by one.
+
+Then let's put an image or a button next to each question that the user can click on to vote for a question.
+
+Use javascript's sorting method, so that the questions are ordered by which questions have the most votes.
+
+##8. Database
+Install Mongodb (see me)
+Go through this tutorial 
+https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+See if you can use it to replace your internal data structure with a real live database.
+
+##9. Users and authentication
+Right now, anyone can vote any number of times. Let's see if we can limit votes to one per user account.
+
+Follow this tutorial. See if you can incorporate authentication into your app
+
+https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+
+Now, you'll have to keep track of which users have voted and disallow voting twice.
+
+##10. Woooooo!
+You've just created your first full stack web app complete with database and authentication!
 
 ##Copyright
 
