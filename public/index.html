@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
     <head>
         <script
@@ -31,4 +32,39 @@
         </div>
         <a href="add.html">Submit question here...</a>
     </body>
+=======
+<html>
+    <head>
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: "http://localhost:3000/api/questions",
+                    method: "GET",
+                    async: false
+                }).done(function(response){
+                    $("#questions").append(response.map(function(element){ // response is the questions array
+                        return "<div class=\"question\">" + element.ques + "<button type=\"button\" id=\"" + element.id + "\" class=\"voteButton\">Vote</button></div>";
+                    }).join("")); 
+                });
+                $(".voteButton").on('click', function(event){
+                    $.ajax({
+                        url: "http://localhost:3000/api/vote",
+                        method: "PUT",
+                        data: {QID: event.currentTarget.id}
+                        
+                    })
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="questions">
+        </div>
+        <a href="add.html">Submit question here...</a>
+    </body>
+>>>>>>> 7a6a0afa9ce304fa16e259d61090db7a0e173c99
 </html>
